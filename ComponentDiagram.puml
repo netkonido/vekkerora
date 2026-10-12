@@ -1,0 +1,25 @@
+@startuml VekkerComponentDiagram
+
+actor User as usr
+Node "Vekker Ora" as clk {
+    component ESP8266
+    component 18650
+    component "Charge\nController" as chg
+    component Display
+    component "Piezzo\nSpeaker" as spk
+    component "Physical\nInterface" as btn
+}
+
+Node "Vekker Server" as srv
+cloud "Web UI" as ui
+interface "API" as api
+
+usr -- ui : <<Configure>>
+srv - api
+ui ..> api
+clk <.. api : <<Command>>
+usr <-d- clk : <<Wake up>>
+
+usr .. Display : <<See>>
+
+@enduml
